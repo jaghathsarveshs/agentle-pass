@@ -152,7 +152,7 @@ We aim to be precise about what this does and doesn't prove:
 
 ## Team Quadra
 
-- Jaghath Sarvesh
+- Jaghath Sarvesh S
 - Bharatheshwar V
 - Kavin B
 - Nithin Eapen Zachariah
