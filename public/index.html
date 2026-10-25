@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agentle Pass | Keep the context. Pass the work.</title>
+  <meta name="description" content="A minimal workspace for checked handoffs between specialist AI agents. Carry the task, the reasons, and the lessons.">
+  <meta name="theme-color" content="#0a0d11">
+  <link rel="icon" type="image/webp" href="assets/agentle-pass-mark.webp">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=review-approval-2.3">
+  <!-- Local edition: UI and Node API share the same address and port. -->
+  <script>window.__API_BASE__ = location.origin;</script>
+  <script src="live.js?v=review-approval-2.3" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="topbar">
+    <div class="brand-lockup"><div class="brand"><img src="assets/agentle-pass-mark.webp" width="32" height="36" alt=""><span>AGENTle <strong>Pass</strong></span></div><span class="brand-tagline">Good handoffs. Fewer facepalms.</span></div>
+    <div class="header-right"><span class="preview-badge" id="connection-badge"><i></i>Connecting backend</span><button type="button" id="motion-toggle" class="text-button" aria-pressed="false">Pause motion</button><button type="button" id="help" class="text-button">How it works</button></div>
+  </header>
+  <main id="workspace">
+    <section class="intro">
+      <div class="intro-copy"><div class="eyebrow"><span class="intro-line"></span>THE CONTEXT CONTINUES</div>
+      <h1>Keep the context. <span>Pass the work.</span></h1>
+      <p>The task, the reasons, and the lessons. Ready for the next agent.</p>
+      <div class="intro-caption"><span>01 / Describe</span><span>02 / Check</span><span>03 / Continue</span></div></div>
+      <button class="packet-visual" id="packet-visual" type="button" aria-label="Explore the context packet">
+        <span class="paper-layer paper-back" aria-hidden="true"></span>
+        <span class="paper-layer paper-middle" aria-hidden="true"></span>
+        <span class="paper-front">
+          <span class="paper-scan" aria-hidden="true"></span>
+          <span class="paper-heading"><span class="paper-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>HandoffState</span><span class="paper-version">JSON / 1.1</span></span>
+          <span class="paper-goal-label">THE GOAL</span><strong id="visual-goal">One task. All the context.</strong>
+          <span class="paper-rule"><span class="paper-rule-check" aria-hidden="true">✓</span><span id="visual-rules">Rules travel with the work</span></span>
+          <span class="paper-divider"></span>
+          <span class="paper-notes"><span><i class="paper-note-line" aria-hidden="true"></i>Why we chose it</span><span><i class="paper-note-line second" aria-hidden="true"></i>What we tried</span></span>
+          <span class="paper-footer"><span id="visual-phase">Inspect the packet</span><span aria-hidden="true">↗</span></span>
+        </span>
+        <span class="packet-caption"><span class="caption-line"></span>CONTEXT, CAREFULLY CARRIED</span>
+      </button>
+    </section>
+
+    <div class="workspace-grid"><div class="prompt-zone">
+    <form id="task-form" class="composer" novalidate>
+      <div class="composer-label"><label for="prompt">What would you like to do?</label><span class="keyboard-hint"><span id="prompt-count">0 words</span><kbd title="Control or Command + Enter">Ctrl / ⌘ ↵</kbd></span></div>
+      <textarea id="prompt" rows="4" maxlength="18000" placeholder="Describe your task in your own words…" aria-describedby="prompt-help form-error" aria-keyshortcuts="Control+Enter Meta+Enter"></textarea>
+      <p id="prompt-help" class="field-help single-help">One prompt. The goal, rules, and context travel together.</p>
+      <input type="hidden" id="goal"><input type="hidden" id="rules"><input type="hidden" id="context"><input type="hidden" id="decision"><input type="hidden" id="reason"><input type="hidden" id="previous">
+      <details id="split-preview" class="disclosure">
+        <summary>See the three parts <span id="split-label">After Research runs</span></summary>
+        <div class="split-grid">
+          <div><h3>The goal</h3><p id="split-goal">What you want to achieve.</p></div>
+          <div><h3>The rules</h3><p id="split-rules">Limits and requirements from your prompt.</p></div>
+          <div><h3>The context</h3><p id="split-context">Your original words, kept intact.</p></div>
+        </div>
+        <p class="field-help">Research will extract the goal and rules, and preserve your original words. Review its interpretation before you continue.</p>
+      </details>
+      <div class="composer-actions">
+        <div class="role-summary"><span class="role-dot"></span><span>Research <span class="dim">→</span> Coding</span><span class="role-count">2 specialists</span></div>
+        <button type="submit" id="run" class="primary" disabled>Start Research <span aria-hidden="true">↗</span></button>
+      </div>
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+    </form>
+    <div class="under-composer"><span id="connection-help">Two real specialists. One NVIDIA model. Supplied notes only.</span><button id="example" type="button" class="text-button">Try an example <span aria-hidden="true">↗</span></button></div>
+    </div>
+
+    <section class="journey" aria-label="Handoff progress">
+      <div class="journey-heading"><span class="eyebrow">THE HANDOFF</span><span class="journey-mode">LIVE / NVIDIA</span></div>
+      <div class="pipeline" id="pipeline">
+        <button class="stage" id="stage-0" type="button" data-stage="0"><span class="stage-marker" id="marker-0">01</span><span class="stage-copy"><strong>Research</strong><span>Prepare context</span></span></button>
+        <div class="connector" id="path-0"><span class="path-fill"></span><span class="packet" aria-hidden="true"></span></div>
+        <button class="stage" id="stage-1" type="button" data-stage="1"><span class="stage-marker" id="marker-1">02</span><span class="stage-copy"><strong>Check handoff</strong><span>Keep the essentials</span></span></button>
+        <div class="connector" id="path-1"><span class="path-fill"></span><span class="packet" aria-hidden="true"></span></div>
+        <button class="stage" id="stage-2" type="button" data-stage="2"><span class="stage-marker" id="marker-2">03</span><span class="stage-copy"><strong>Coding</strong><span>Create a Python file</span></span></button>
+      </div>
+      <div class="journey-outcome"><span id="overall" class="overall">Ready when you are</span><span class="journey-endline"></span></div>
+      <div class="status-row"><span id="status-dot" class="status-dot"></span><p id="status" role="status" aria-live="polite">Add a task or try the example to see a checked handoff.</p><button id="skip" type="button" class="text-button" hidden>Skip animation</button><button id="inspect" type="button" class="text-button">View details <span aria-hidden="true">↗</span></button></div>
+    </section>
+    </div>
+
+    <section class="evidence" id="evidence" aria-labelledby="evidence-heading" hidden>
+      <div class="evidence-heading"><div><h2 id="evidence-heading">The rules travel with it.</h2><p>Preserved instructions, visible at every step.</p></div><span id="evidence-state" class="evidence-state">Not checked</span></div>
+      <div class="rule-table-wrap"><table class="rule-journey"><thead><tr><th>Your original rule</th><th>In the handoff</th><th>Output check</th></tr></thead><tbody id="rule-rows"></tbody></table></div>
+      <div class="evidence-strip">
+        <button id="source-evidence" type="button"><span class="evidence-label">Source</span><strong>Original prompt <span aria-hidden="true">↗</span></strong><span id="source-evidence-state">Your words, attached</span></button>
+        <button id="check-evidence" type="button"><span class="evidence-label">Checkpoint</span><strong id="check-evidence-count">Waiting for checks</strong><span>Structure + preserved context</span></button>
+        <button id="note-evidence" type="button"><span class="evidence-label">Continuity</span><strong id="note-evidence-count">No notes recorded</strong><span>Reasons + actual attempts</span></button>
+      </div>
+      <p class="evidence-caveat">Present in the packet does not mean obeyed in the output. Output checks inspect Python syntax and selected patterns, not runtime behavior. “Manual” means not automatically verified.</p>
+    </section>
+
+    <section class="result" id="result" aria-labelledby="result-heading">
+      <div class="result-top"><span class="eyebrow">THE WORK, CONTINUED</span><span id="result-badge" class="result-badge">Waiting for context</span></div>
+      <div id="empty-result" class="empty-result"><span class="empty-symbol" aria-hidden="true">↗</span><div><h2 id="result-heading">A good handoff starts here.</h2><p>The next specialist gets the context, not just a message.</p></div></div>
+      <div id="review" class="review" hidden>
+        <h2 id="review-title">Did Research understand you?</h2>
+        <p class="field-help">Review the source-backed rules before passing the work. Possible omissions are hints, not a guarantee that every instruction was found.</p>
+        <p id="review-goal"></p>
+        <div id="revision-preview" class="source-quote-panel" hidden></div>
+        <p id="review-approval-note" class="source-quote-panel" role="status" hidden></p>
+        <ul id="review-rules"></ul><div id="coverage-hints" class="coverage-hints"></div><p id="review-questions"></p>
+        <details><summary>What Research worked out</summary><p id="review-findings" class="research-findings"></p></details>
+        <details id="sender-tools">
+          <summary>Answer a question or update my task</summary>
+          <label for="sender-question">Your answer or updated instruction</label>
+          <textarea id="sender-question" rows="2" maxlength="2000" placeholder="For example: use only the standard library and drop the requests requirement."></textarea>
+          <div class="technical-actions">
+            <button type="button" id="user-answer" class="secondary">Send my answer</button>
+            <button type="button" id="ask-sender" class="text-button">Ask Research a question instead</button>
+          </div>
+          <p id="sender-budget" class="caveat">Your answer can propose an updated task for approval. A question alone cannot change your rules.</p>
+        </details>
+        <div class="review-actions"><button type="button" id="confirm-contract" class="primary">Looks right. Check & code <span aria-hidden="true">↗</span></button><button type="button" id="revise" class="text-button">Edit my prompt</button></div>
+      </div>
+      <div id="output" class="output" hidden><h2 id="output-title">Your Python file is ready.</h2><div id="output-content"></div><details id="code-tools"><summary>Edit code and verify its evidence</summary><p id="code-freshness" class="caveat"></p><label for="code-editor">Generated Python source, never executed here</label><textarea id="code-editor" class="code" rows="12" spellcheck="false"></textarea><div class="technical-actions"><button type="button" id="save-code" class="secondary">Save changes</button><button type="button" id="recheck-code" class="secondary">Recheck code</button><button type="button" id="inject-import" class="text-button">Test: insert banned import</button></div><p class="caveat">The test inserts <code>import requests</code>. An old pass must become stale before the new scan can report failure. No AI call or code execution is needed.</p></details><div id="notes-receipt" class="notes-receipt"></div><div class="receipt"><span id="receipt"></span><div class="output-actions"><button type="button" id="copy-output" class="text-button">Copy code</button><button type="button" id="download-code" class="secondary">Download .py</button></div></div></div>
+      <form id="clarification" hidden>
+        <h2 id="clarification-title">One detail needs your attention.</h2><p id="clarification-prompt"></p>
+        <label id="answer-label" for="answer">Confirm the original task</label>
+        <div class="answer-row"><input id="answer" autocomplete="off" maxlength="2000"><button class="primary" type="submit">Confirm & recheck <span aria-hidden="true">→</span></button></div>
+        <p class="form-error" id="answer-error" role="alert"></p>
+        <button type="button" id="revise-blocked" class="text-button">Edit task and start again</button>
+      </form>
+    </section>
+    <footer>
+      <div class="footer-left"><button id="compare" type="button" class="text-button">Compare handoffs <span aria-hidden="true">↗</span></button><button id="history" type="button" class="text-button">Saved runs</button><span class="footer-sep">/</span><span>Team Quadra</span></div>
+      <div class="footer-right"><button id="reset" type="button" class="text-button">Reset</button><details class="demo-controls" id="demo-controls"><summary>Test fixtures</summary><div class="controls-popover"><label for="scenario">Inject a test condition</label><select id="scenario"><option value="valid">Clean handoff</option><option value="malformed">Broken JSON → repair once</option><option value="dropped">Missing rule → repair once</option><option value="wrong">Wrong task → ask the user</option><option value="missing">Missing source → ask the user</option><option value="artifact">Changed research → reject & restore</option><option value="poisoned">Background override → reject & restore</option></select><p>Deliberate faults, not observed AI mistakes. Repairs restore known information without an extra AI call. Real Research and Coding still use NVIDIA. Do not use injected faults as benchmark evidence.</p></div></details></div>
+    </footer>
+  </main>
+
+  <dialog id="details-dialog" class="drawer" aria-labelledby="details-title">
+    <div class="dialog-heading"><div><span class="eyebrow">THE CONTEXT TRAVELLING FORWARD</span><h2 id="details-title">Handoff details</h2></div><button type="button" class="close-button" data-close="details-dialog" aria-label="Close handoff details">×</button></div>
+    <div class="drawer-body">
+      <div class="drawer-status" id="drawer-status">Preview packet · no run yet</div>
+      <div class="readable-field"><h3>The goal</h3><p id="detail-goal"></p></div>
+      <div class="readable-field"><h3>Rules to keep</h3><ul id="detail-rules"></ul></div>
+      <div id="source-quote-panel" class="source-quote-panel" hidden><h3 id="source-quote-title">Rule source</h3><p id="source-quote-text"></p><p id="source-quote-authority" class="caveat"></p></div>
+      <div class="readable-field"><h3>Original prompt passed forward</h3><p id="detail-artifacts"></p></div>
+      <div class="context-note"><span class="note-number">01</span><div><h3>Why we chose this</h3><div id="detail-decisions"></div></div></div>
+      <div class="context-note"><span class="note-number">02</span><div><h3>What we already tried</h3><div id="detail-attempts"></div></div></div>
+      <div class="readable-field"><h3>Still unanswered</h3><p id="detail-questions"></p></div>
+      <details><summary>What was checked?</summary><ul id="check-list" class="check-list"></ul><p id="hash-receipt" class="caveat"></p><p class="caveat">These checks confirm structure and preserved context, not factual truth or complete understanding. SHA-256 detects changed content, not a trustworthy author.</p></details>
+      <details><summary>Activity log</summary><ol id="activity" class="activity"></ol></details>
+      <details><summary>Versioned check evidence</summary><div id="record-list" class="record-list"></div></details>
+      <div class="technical-actions"><button type="button" id="export-evidence" class="secondary">Download evidence</button><button type="button" id="resume-brief" class="text-button">Export resume brief</button></div>
+      <details id="technical"><summary>Technical details <span>JSON</span></summary><label for="json">Edit the handoff packet</label><textarea id="json" class="code" rows="16" spellcheck="false"></textarea><div class="technical-actions"><button type="button" id="validate" class="secondary">Check packet</button><button type="button" id="regenerate" class="secondary" hidden>Generate code again</button><button type="button" id="copy" class="text-button">Copy JSON</button><button type="button" id="download" class="text-button">Download</button></div><p id="validation" class="validation" role="status"></p><p id="model-details" class="caveat"></p></details>
+    </div>
+  </dialog>
+  <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-title">
+    <div class="dialog-heading"><div><span class="eyebrow">MEASURE THE DIFFERENCE</span><h2 id="compare-title">Does a clearer handoff help?</h2></div><button type="button" class="close-button" data-close="compare-dialog" aria-label="Close comparison">×</button></div>
+    <p class="compare-intro" id="comparison-status">Finish a clean run first. Then optionally run Coding again with the same Research result as plain text.</p>
+    <form id="comparison-clarification" class="source-quote-panel" hidden>
+      <h3>The plain-text agent needs your answer</h3>
+      <p id="comparison-question"></p>
+      <label for="comparison-answer">Your answer</label>
+      <textarea id="comparison-answer" rows="3" maxlength="2000" placeholder="For example: use a fixed lost_found.json file in the current folder."></textarea>
+      <button id="comparison-refresh-checks" class="secondary" type="button" hidden>Recheck saved result first (no AI call)</button>
+      <button id="continue-comparison" class="primary" type="submit">Send answer &amp; continue</button>
+      <p class="caveat">One extra AI call. Up to two answers.</p>
+      <p id="comparison-answer-error" class="form-error" role="alert"></p>
+    </form>
+    <div class="comparison-actions"><button type="button" id="run-comparison" class="primary" disabled>Compare results</button><button type="button" id="finish-comparison" class="secondary" hidden>Finish with defaults</button></div><p class="field-help" id="comparison-call-note">One extra AI call. Results appear below.</p>
+    <div class="table-wrap"><table><thead><tr><th>Measure</th><th id="plain-column">Plain text</th><th>AGENTle Pass</th></tr></thead><tbody id="comparison-rows"></tbody></table></div>
+    <details id="baseline-details" hidden><summary>See the plain-text result</summary><pre class="generated-code" id="baseline-code"></pre><button type="button" id="download-baseline" class="text-button">Download baseline .py</button></details>
+    <details class="comparison-notes"><summary>About these results</summary><p class="caveat">Static checks only, not runtime testing. A tie is valid. If you answer a question, plain text has extra context; rerun both with that detail in the original prompt for a fair test.</p></details>
+  </dialog>
+  <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-heading"><div><span class="eyebrow">AGENTLE PASS / TEAM QUADRA</span><h2 id="help-title">A handoff, not a fresh start.</h2></div><button type="button" class="close-button" data-close="help-dialog" aria-label="Close help">×</button></div>
+    <div class="help-body"><img src="assets/agentle-pass-logo.webp" width="140" height="140" alt="Agentle Pass logo: two blue and cyan transfer arrows"><p><strong>Describe.</strong> Ask for a small Python tool. Include rules, reasons and actual previous attempts in one prompt. An optional section starting “Background notes:” is reference data, not permission to override your rules.</p><p><strong>Research.</strong> A real AI specialist analyses supplied material and proposes source-backed requirements. No live web research occurs.</p><p><strong>Review.</strong> Inspect quotes and possible omissions. Ask Research a focused question or supply an explicit answer; correction rounds are bounded.</p><p><strong>Check & code.</strong> Ordinary code validates the handoff. A separate conversation using the same model creates your Python file.</p><p><strong>Continue.</strong> Saved runs retain evidence; export a resume brief for a new chat. Changed code invalidates old output evidence until rechecked.</p><p class="caveat">The generated file is not executed here. Static checks are limited, not a security or correctness guarantee. Saved prompts/evidence are private files, not encrypted storage: do not include secrets or sensitive data. Interrupted work is not automatically restarted. NVIDIA usage remains subject to your account limits.</p></div>
+  </dialog>
+  <dialog id="history-dialog" class="help-dialog" aria-labelledby="history-title"><div class="dialog-heading"><div><span class="eyebrow">PICK UP THE THREAD</span><h2 id="history-title">Saved runs</h2></div><button type="button" class="close-button" data-close="history-dialog" aria-label="Close saved runs">×</button></div><div id="history-list" class="drawer-body"></div></dialog>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "agentle-pass",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AGENTle Pass: checked handoffs between a Research and a Coding AI specialist (NVIDIA).",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=20" }
+}
